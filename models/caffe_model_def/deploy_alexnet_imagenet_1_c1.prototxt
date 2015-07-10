@@ -1,0 +1,30 @@
+name: "CaffeNet"
+input: "data"
+input_dim: 10
+input_dim: 3
+input_dim: 227
+input_dim: 227
+force_backward: true
+layers {
+  layer {
+    name: "conv1"
+    type: "conv"
+    num_output: 96
+    kernelsize: 11
+    stride: 4
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.
+    }
+    blobs_lr: 1.
+    blobs_lr: 2.
+    weight_decay: 1.
+    weight_decay: 0.
+  }
+  bottom: "data"
+  top: "conv1"
+}
