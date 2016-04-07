@@ -5,11 +5,11 @@ modelSetFolder = '/data/vision/torralba/deeplearning/CAMnet';
 if ~exist('net','var')
     switch exp.model
         case 'caffe-ref'
-            net = load('networks/imagenet-caffe-ref.mat') ;
+            net = load('models/imagenet-caffe-ref.mat') ;
             exp.opts.normalize = get_cnn_normalize(net.normalization) ;
             exp.opts.denormalize = get_cnn_denormalize(net.normalization) ;
         case 'caffe-mitplaces'
-            net = load('places-caffe-ref-upgraded.mat');
+            net = load('models/places-caffe-ref-upgraded.mat');
             exp.opts.normalize = get_cnn_normalize(net.normalization) ;
             exp.opts.denormalize = get_cnn_denormalize(net.normalization) ;
         case 1

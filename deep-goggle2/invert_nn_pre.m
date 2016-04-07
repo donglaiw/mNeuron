@@ -165,6 +165,7 @@ switch opts.objective
         net.layers{end+1} = ly ;
     case 'oneclass'
         % The inner product loss may be suitable for some networks
+        % maxize the probability of one class
         ly.type = 'custom' ;
         ly.mask =  mask ;
         ly.forward = @oneclass_forward ;

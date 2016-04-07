@@ -4,7 +4,8 @@ addpath('util')
 switch cnn_mode 
     case 'matconvnet'
         % matconvnet
-        addpath(genpath('/data/vision/billf/donglai-lib/VisionLib/Donglai/DeepL/matconvnet_cpu'))
+        addpath('/data/vision/billf/donglai-lib/VisionLib/Donglai/DeepL/matconvnet_cpu/matlab/mex')
+        addpath(genpath('/data/vision/billf/donglai-lib/VisionLib/Donglai/DeepL/matconvnet_cpu/'))
         if mid>2;error('matconvnet only support mid={1,2}, alexnet and vgg');end
     case 'caffe'
         % matcaffe
