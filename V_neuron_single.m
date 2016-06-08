@@ -1,29 +1,37 @@
-% invert neurons from model 'mid' at certain layer 'lid'
-% modified from deep-goggle/
-
-%% 1. model parameters
+% Usage: invert neurons from model 'mid' at certain layer 'lid'
 % caffe supoort: alexnet, vgg, nin, googlenet
 % matconvnet supoort: alexnet, vgg
-cnn_mode='caffe'; % 'caffe' or 'matconvnet'
-%cnn_mode='matconvnet'; % 'caffe' or 'matconvnet'
+
+
+% --------- USER INPUT -----------
+%% 1. select and load model
+cnn_mode = 'caffe'; % 'caffe' or 'matconvnet'
+mid = 1; % 1: alexnet, 2:VGG-16, 3:NIN, 4:GoogleNet
+v_loadModel % reload model
+
+%% 2. select which layer (lid) to visualize
+% v_layerName; % check the name and lid for each layer
 
 % visualize pool5 neurons for each model
-% mid=1; lid=10; % alexnet
-% mid=2; lid=19; % VGG-16
-mid=3; lid=13; % NIN
-% mid=4; lid=45; % GoogleNet
+    lid=10; % alexnet
+%   lid=19; % VGG-16
+%   lid=13; % NIN
+%   lid=45; % GoogleNet
+
 % visualize fc8 neurons for each model
-% mid=1; lid=14; % alexnet
-% mid=2; lid=19; % VGG-16
-% mid=3; lid=13; % NIN
-% mid=4; lid=45; % GoogleNet
+%   lid=14; % alexnet
+%   lid=19; % VGG-16
+%   lid=13; % NIN
+%   lid=45; % GoogleNet
 
-
-gpu_id=1; % -1: cpu mode
-% neuron_id=1; % neuron channel id
-% neuron_rf=14; % receptive field size
+%% 3. select which neuron and number of tiles 
+neuron_id=1; % neuron channel id
+neuron_rf=1; % neuron_rf x neuron_rf tiles will be visualized
 neuron_rand=1; % random seed for initializtion
 
+%% 4. GPU or CPU
+gpu_id=1; % -1: cpu mode
+%% 5. I/O
 output_folder = sprintf('result/%d_%d/',mid,lid); mkdir(output_folder)
 output_name = sprintf('%d_%d_%d.png',neuron_id,neuron_rf,neuron_rand);
 init_file = [output_folder sprintf('init_%d.png',neuron_id)];
@@ -31,6 +39,10 @@ init_file = [output_folder sprintf('init_%d.png',neuron_id)];
 %% for debug 
 % display every opts.dsp iterations (no display if negative)
 opts.dsp = 5;
+
+
+% --------- READY TO RUN -----------
+
 % to avoid reloading models: do_setup=0;V_neuron_single;
 if ~exist('do_setup','var');do_setup=1;end
 

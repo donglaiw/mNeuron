@@ -51,9 +51,9 @@ if exist(model_file,'file') && exist(model_def_file,'file')
     caffe('reset');
     caffe('init', model_def_file, model_file,'test');
     if gpu_id>-1
-        caffe('set_device',gpu_id);
+        caffe.caffe.set_mode_gpu();caffe.set_device(gpu_id);
     else
-        caffe('set_mode_cpu');
+        caffe.set_mode_cpu();
     end
     if layer==-1
         % get network information
@@ -66,4 +66,6 @@ if exist(model_file,'file') && exist(model_def_file,'file')
         response = caffe('get_all_layers');
         layernames = caffe('get_names');
     end
+else
+    error('caffe model file or model definition does not exist !')
 end
