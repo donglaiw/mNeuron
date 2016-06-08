@@ -1,5 +1,4 @@
 # mNeuron: A Matlab Plugin to Visualize Neurons from Convolutional Neural Network (CNN)
-(support )
 
 ## Features:
 1. Support models from [**caffe (June 2016)**](https://github.com/BVLC/caffe) and [**matconvnet (1.0-beta12, May 2015)**](http://www.vlfeat.org/matconvnet/)
@@ -22,14 +21,14 @@
 2. Visualize hierarchical binary CNN code
 
 ## Update
-+ 2016.06: code organization
-    ..* update caffe version to June 2016
-    ..* add links to compatible CNN models
-+ 2016.04: add object insertion
-    ..* object insertion (V_app_inpaint.m)
-+ 2015.07: initial release
-    ..* support caffe (July 2015) and matconvnet (1.0-beta12, May 2015)
-    ..* single neuron visualization (V_neuron_single.m)
+* 2016.06: code organization
+..* update caffe version to June 2016
+..* add links to compatible CNN models
+* 2016.04: add object insertion
+..* object insertion (V_app_inpaint.m)
+* 2015.07: initial release
+..* support caffe (July 2015) and matconvnet (1.0-beta12, May 2015)
+..* single neuron visualization (V_neuron_single.m)
 
 ## Acknowledgement
 The code is heavily based on aravindhm's [**deep-goggle**](https://github.com/aravindhm/deep-goggle)
