@@ -132,47 +132,47 @@ end
 
 %% Tweak the network by adding a reconstruction loss at the end
 
-layer_num = numel(net.layers) ; % The layer number which we are reconstructing
 % This is saved here just for printing our progress as optimization proceeds
-
-switch opts.objective
-    case 'l2'
-        % Add the l2 loss over the network
-        ly.type = 'custom' ;
-        ly.w = y0 ;
-        ly.mask = mask ;
-        ly.forward = @nndistance_forward ;
-        ly.backward = @nndistance_backward ;
-        net.layers{end+1} = ly ;
-    case 'l1'
-        % The L1 loss might want to use a dropout layer.
-        % This is just a guess and hasn't been tried.
-        ly.type = 'dropout' ;
-        ly.rate = opts.dropout ;
-        net.layers{end+1} = ly ;
-        ly.type = 'custom' ;
-        ly.w = y0 ;
-        ly.mask = mask ;
-        ly.forward = @nndistance1_forward ;
-        ly.backward = @nndistance1_backward ;
-        net.layers{end+1} = ly ;
-    case 'inner'
-        % The inner product loss may be suitable for some networks
-        ly.type = 'custom' ;
-        ly.w = - y0 .* mask ;
-        ly.forward = @nninner_forward ;
-        ly.backward = @nninner_backward ;
-        net.layers{end+1} = ly ;
-    case 'oneclass'
-        % The inner product loss may be suitable for some networks
-        % maxize the probability of one class
-        ly.type = 'custom' ;
-        ly.mask =  mask ;
-        ly.forward = @oneclass_forward ;
-        ly.backward = @oneclass_backward ;
-        net.layers{end+1} = ly ;
-    otherwise
-        error('unknown opts.objective') ;
+if net.cnn_mode==0
+    switch opts.objective
+        case 'l2'
+            % Add the l2 loss over the network
+            ly.type = 'custom' ;
+            ly.w = y0 ;
+            ly.mask = mask ;
+            ly.forward = @nndistance_forward ;
+            ly.backward = @nndistance_backward ;
+            net.layers{end+1} = ly ;
+        case 'l1'
+            % The L1 loss might want to use a dropout layer.
+            % This is just a guess and hasn't been tried.
+            ly.type = 'dropout' ;
+            ly.rate = opts.dropout ;
+            net.layers{end+1} = ly ;
+            ly.type = 'custom' ;
+            ly.w = y0 ;
+            ly.mask = mask ;
+            ly.forward = @nndistance1_forward ;
+            ly.backward = @nndistance1_backward ;
+            net.layers{end+1} = ly ;
+        case 'inner'
+            % The inner product loss may be suitable for some networks
+            ly.type = 'custom' ;
+            ly.w = - y0 .* mask ;
+            ly.forward = @nninner_forward ;
+            ly.backward = @nninner_backward ;
+            net.layers{end+1} = ly ;
+        case 'oneclass'
+            % The inner product loss may be suitable for some networks
+            % maxize the probability of one class
+            ly.type = 'custom' ;
+            ly.mask =  mask ;
+            ly.forward = @oneclass_forward ;
+            ly.backward = @oneclass_backward ;
+            net.layers{end+1} = ly ;
+        otherwise
+            error('unknown opts.objective') ;
+    end
 end
 
 % --------------------------------------------------------------------

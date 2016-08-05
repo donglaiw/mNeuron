@@ -1,4 +1,4 @@
-function exp = experiment_init(model, layer, imageName, prefix, suffix, varargin)
+function exp = experiment_init(model, imageName, prefix, suffix, varargin)
 % Initialize an experiment
 % from deep-goggle
 
@@ -20,7 +20,6 @@ if isempty(imageDir), imageDir = 'data/images' ; end
 
 exp.expDir = fullfile('data', prefix, suffix) ;
 exp.model = model ;
-exp.layer = layer ;
 exp.name = imageName ;
 exp.useHoggle = false ;
 exp.path = fullfile(imageDir, [imageName, imageExt]) ;

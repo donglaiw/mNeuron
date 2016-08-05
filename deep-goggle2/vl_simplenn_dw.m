@@ -147,11 +147,11 @@ end
 res(1).x = x ;
 
 regu_id=[];
-  if ~isempty(net.regu)
+  if isfield(net,'regu') && ~isempty(net.regu)
     regu_id = [arrayfun(@(x) net.regu{x}{1},1:numel(net.regu))];
   end
 mask_id=[];
-  if ~isempty(net.fmask)
+  if isfield(net,'fmask') &&~isempty(net.fmask)
     mask_id = [arrayfun(@(x) net.fmask{x}{1},1:numel(net.fmask))];
   end
 for i=1:n

@@ -1,10 +1,11 @@
 *.sw*
 *.caffemodel 
-models/caffe_model/VGG_ILSVRC_16_layers.caffemodel
-models/caffe_model/bvlc_googlenet.caffemodel
-models/caffe_model/bvlc_reference_caffenet.caffemodel
-models/caffe_model/nin_imagenet.caffemodel
-models/matconvnet_model/imagenet-caffe-ref.mat
+models/VGG_ILSVRC_16_layers.caffemodel
+models/bvlc_googlenet.caffemodel
+models/bvlc_reference_caffenet.caffemodel
+models/nin_imagenet.caffemodel
+models/imagenet-caffe-ref.mat
+models/imagenet-vgg-verydeep-19.mat
 www/
 result/
 T_*.m

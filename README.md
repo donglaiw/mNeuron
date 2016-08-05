@@ -1,27 +1,25 @@
 # mNeuron: A Matlab Plugin to Visualize Neurons from Convolutional Neural Network (CNN)
 
 ## Features:
-1. Support models from [**caffe (June 2016)**](https://github.com/BVLC/caffe) and [**matconvnet (1.0-beta12, May 2015)**](http://www.vlfeat.org/matconvnet/)
-2. Result: [**Visualization Page**](http://vision03.csail.mit.edu/cnn_art/index.html)
-3. Compatible version of CNN models [download link](http://vision03.csail.mit.edu/manip/HITs_vimeo/mNeuron/)
+- Result: [**Visualization Page**](http://vision03.csail.mit.edu/cnn_art/index.html), [**pdf**](http://vision03.csail.mit.edu/cnn_art/data/cnn_visual_arxiv.pdf)
+- Support models from [**caffe (June 2016)**](https://github.com/BVLC/caffe) and [**matconvnet (1.0-beta12, May 2015)**](http://www.vlfeat.org/matconvnet/)
+(caffe support: AlexNet/VGG-16/NIN/GoogleNet; matconvet support: AlexNet)
+(matconvnet: upgrade the models with the `vl_simplenn_tidy` function.)
 
 ## Demos:
-(caffe support: AlexNet/VGG-16/NIN/GoogleNet; matconvet support: AlexNet/VGG-16)
-
 1. Visualize single neurons with caffe model:
-  1. Edit matcaffe location in **param_init.m**
-  2. Edit alexnet.caffemodel location in **util/caffe_init.m**
-  3. Run: **V_neuron_single.m**
-
-1. Image Completion
-  1. Run **V_app_inpaint.m** 
+  1. Edit **param_init.m**: caffe/matcaffe location
+  2. Download imagenet models
+     [link](http://vision03.csail.mit.edu/cnn_art/models/) and put under models/
+  3. Edit and run: **V_neuron_single.m**
 
 ## Under Construction
 1. Visualize Intra-class variation
 2. Visualize hierarchical binary CNN code
+3. Image Completion
 
 ## Update
-- 2016.06: code organization
+- 2016.08: code organization
     - update caffe version to June 2016
     - add links to compatible CNN models
 - 2016.04: add object insertion

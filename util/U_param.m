@@ -1,4 +1,4 @@
-function opts = V_neuron_param(task,mid,lid,opts)
+function opts = U_param(task,mid,ln,opts)
 
 switch task
     case 1
@@ -11,15 +11,13 @@ switch task
                 opts.learningRate = 0.04 * [...
                     0.05 * ones(1,100), ...
                     0.01 * ones(1,100)];
-                switch lid
-                case 10
-                    % p5, default
-                case 13
-                    % fc7
-                opts.lambdaD = 3e-2;
-                case 14
-                    % fc8
-                opts.lambdaD = 1e-2;
+                switch ln
+                case 'p5'
+                    % default
+                case 'f7'
+                    opts.lambdaD = 3e-2;
+                case 'f8'
+                    opts.lambdaD = 1e-2;
                 end
             case 2
                 opts.lambdaL2 = 1e-10 ;opts.lambdaTV = 8e2;opts.lambdaD = 3e-3;
@@ -42,4 +40,14 @@ switch task
                     0.01 * ones(1,100)];
         end
     case 2
+        % image inpainting
+        switch mid
+        case 1
+            opts.lambdaL2 = 1e-2 ;opts.lambdaTV = 3e2; opts.lambdaD = 1e1;
+            opts.grad_ran=[0 100];
+            opts.learningRate = 0.0004 * [...
+            0.05 * ones(1,70), ...
+            0.02 * ones(1,70), ...
+            0.02 * ones(1,70)];
+        end
 end
