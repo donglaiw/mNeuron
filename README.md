@@ -5,11 +5,10 @@
 - Support models from [**caffe (June 2016)**](https://github.com/BVLC/caffe) and [**matconvnet (1.0-beta12, May 2015)**](http://www.vlfeat.org/matconvnet/)
 
 (caffe support: AlexNet/VGG-16/NIN/GoogleNet; matconvet support: AlexNet)
-(matconvnet: upgrade the models with the `vl_simplenn_tidy` function.)
 
 ## Download Pre-train Models:
-    1. [**link**](http://vision03.csail.mit.edu/cnn_art/models/) and put under models/
-    2. Edit **param_init.m**: caffe/matcaffe location
+- [**link**](http://vision03.csail.mit.edu/cnn_art/models/) and put under models/
+- Edit **param_init.m**: caffe/matcaffe location
 
 ## Demos:
 1. Visualize single neurons from CNN model:
