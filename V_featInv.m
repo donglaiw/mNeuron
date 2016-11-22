@@ -11,6 +11,7 @@ ln = 'p5';
 % 1. load feat, invert p5 feature
 imName = 'data/images/test.jpg';
 im_gt = U_prepare_image(single(imread(imName)),[],'alex',-2);
+figure(2);imagesc(imread(imName)),title('original image')
 
 % 2. setup optimization param
 U_optsInit

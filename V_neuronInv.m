@@ -27,7 +27,7 @@ mn='alex';ln = 'p5';
 
 %% 1.2 select which neuron and number of tiles 
 neuron_id=10; % neuron channel id
-neuron_rf=6; % neuron_rf x neuron_rf tiles will be visualized
+neuron_rf=6; % neuron_rf x neuron_rf tiles will be visualized (for alexnet, range: 1-6)
 neuron_rand=10; % random seed for initializtion
 % file of initial image, random if init_file=[];
 init_file = [];

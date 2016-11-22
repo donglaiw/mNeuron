@@ -2,7 +2,7 @@
 
 param_init
 % parameters to set
-TOPIC_ID=1;
+TOPIC_ID=2;
 mn='alex';ln='f7'; % fc7 
 cnn_mode='matconvnet'; % 'caffe' or 'matconvnet'
 neuron_rand=1;
