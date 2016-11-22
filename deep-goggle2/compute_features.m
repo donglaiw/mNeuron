@@ -1,4 +1,4 @@
-function feats = compute_features(net, img, opt,do_norm)
+function feats = compute_features(net, img, do_norm)
 % feats = compute_features(net, img) - compute features from a network
 %
 %  Inputs: net - the neural network (same as for vl_simplenn)
@@ -22,24 +22,7 @@ end
 x0 = repmat(x0, [1, 1, 1, 1]);
 % Run feedforward for network
 
-if exist('opt','var') && opt(1)~=-1
-    net.layers=net.layers(1:max(opt)-1);
-end
-res = vl_simplenn(net, x0);
-if ~exist('opt','var')
-    feats = res(end).x;
-else
-    if opt(1)==-1
-        opt = 1:numel(res);
-    end
-    feats = cell(1,numel(opt));
-    for i=1:numel(opt)
-        feats{i} = res(opt(i)).x;
-    end
-   
-    % cell to array
-    if numel(opt)==1
-        feats= feats{1};
-    end
-end
+switch net.cnn_mode
+    case 0;res = vl_simplenn_dw(net, x0);feats = res(end).x;
+    case 1;res = net.caffe.forward({x0});feats = res{end};
 end

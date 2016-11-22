@@ -10,9 +10,8 @@ switch cnn_mode
         % matconvnet
         addpath([MATCONVNET_ROOT '/matlab/mex'])
         addpath(genpath(MATCONVNET_ROOT))
-        if mid>2;error('matconvnet only support mid={1,2}, alexnet and vgg');end
-        switch mid
-        case 1
+        switch mn
+        case 'alex'
             net = load('models/imagenet-caffe-ref.mat') ;
             % convert ln into lid
             ll= [1,4,9,11,13,15,16,18,20];
@@ -36,18 +35,18 @@ switch cnn_mode
         % load truncated caffe model at layer lid
         model_def_file = '';
         model_file = '';
-        switch mid
-            case 1
+        switch mn
+            case 'alex'
                 net.im_sz=227;
                 model_file = 'models/bvlc_alexnet.caffemodel';
                 model_def_file = ['models/caffe_model_def/deploy_alexnet_imagenet_' ln '.prototxt'];
-            case 2
+            case 'vgg16'
                 model_file='models/VGG_ILSVRC_16_layers.caffemodel';
                 model_def_file = ['models/caffe_model_def/deploy_vgg16_imagenet_' ln '.prototxt'];
-            case 3
+            case 'nin'
                 model_file = ['models/nin_imagenet.caffemodel'];
                 model_def_file = ['models/caffe_model_def/deploy_nin_imagenet_' ln '.prototxt'];
-            case 4
+            case 'gnet'
                 model_file = ['models/bvlc_googlenet.caffemodel'];
                 model_def_file = ['models/caffe_model_def/deploy_googlenet_imagenet_' ln '.prototxt'];
         end
@@ -73,6 +72,4 @@ switch cnn_mode
 end 
 net.layerName=ln;
 
-% setup visualization parameters
-U_optsInit
 

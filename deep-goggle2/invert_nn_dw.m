@@ -1,16 +1,17 @@
-function res = invert_nn_dw(net, ref, varargin)
+function res = invert_nn_dw(net, ref, opts)
 
 % setup param
-[net,opts,x] = invert_nn_pre(net, ref, varargin);
+[net,opts,x] = invert_nn_pre(net, ref, opts);
 x0_size = cat(2,net.normalization.imageSize,opts.numRepeats);
 x_momentum = zeros(x0_size, 'single') ;
 load('x0_sigma.mat', 'x0_sigma');
 y0 = repmat(ref, [1 1 1 opts.numRepeats]);
 switch opts.task
-    case 0;y0_sigma = norm(squeeze(y0(find(net.layers{end}.mask(:))))) ;
-    case {1,2};y0_sigma = 1;
+    case {0,2}
+        y0_sigma = norm(y0(:)) ;
+    case {1}
+        y0_sigma = 1;
 end
-
 
 %% --------------------------------------------------------------------
 %%                                                 Perform optimisation
@@ -33,15 +34,11 @@ end
 
 res=[];
 % visualize dropout mask
-if ~isempty(opts.m67)
-    res = U_cnn_fb(net,res,x,2);
-end
-
 E=zeros(5,opts.maxNumIterations);
 for t=1:opts.maxNumIterations
 
   % 1. Effectively does both forward and backward passes
-  res = U_cnn_fb(net,res,x,1,opts.mask);
+  res = U_cnn_fb(net,res,x,opts.mask);
 
  % The current best feature we could generate
   switch net.cnn_mode
@@ -109,22 +106,14 @@ for t=1:opts.maxNumIterations
   dr_d = opts.lambdaD*res(1).dzdx;
   %keyboard
   % [max(dr_d(:)) max(dr(:)/(x0_sigma^2)) max(opts.lambdaD*res(1).dzdx(:))]
-  switch opts.task
-  case 0 
-    dsp_p=x0_sigma^2/y0_sigma^2;
+  dsp_p=x0_sigma^2/y0_sigma^2;
   x_momentum = opts.momentum * x_momentum ...
       - lr * dr ...
-      - (lr * x0_sigma^2/y0_sigma^2) * dr_d;
-  case {1,2} 
-    dsp_p=x0_sigma^2;
-  x_momentum = opts.momentum * x_momentum ...
-      - lr * dr ...
-      - (lr *  (x0_sigma^2)*dr_d);
-    end
+      - (lr *  (x0_sigma^2/y0_sigma^2)*dr_d);
 
     % gradient clipping
     tmp_max =max(abs(x_momentum(:)));
-    if opts.grad_ran(1)>0
+    if opts.grad_ran(1)>=0
         if tmp_max>opts.grad_ran(2)
             x_momentum=x_momentum/tmp_max*opts.grad_ran(2);
         elseif tmp_max<opts.grad_ran(1)
@@ -165,31 +154,6 @@ for t=1:opts.maxNumIterations
       imagesc(uint8(output{end})) ;
     end
     axis image ; 
-
-    switch opts.task
-    case 0 % feature inversion
-        subplot(3,2,2) ;
-        len = min(1000, numel(y0));
-        a = squeeze(y0(1:len)) ;
-        b = squeeze(y(1:len)) ;
-        plot(1:len,a,'b'); hold on ;
-        plot(len+1:2*len,abs(b-a), 'r');
-        legend('\Phi_0', '|\Phi-\Phi_0|') ;
-        title(sprintf('reconstructed layer %s', ...
-          net.layerName)) ;
-        legend('ref', 'delta') ;
-    
-        if ~isempty(opts.regu)
-            subplot(3,2,6) ;
-            a= mean(reshape(regu_out{1},[],size(regu_out{1},3)));
-            b= opts.regu{1}{2};
-            len = min(1000, numel(a));
-            plot(1:len,a,'b'); hold on ;
-            plot(len+1:2*len,abs(b-a), 'r');
-            axis tight
-            title(opts.regu{1}{1})
-        end
-    end
 
     subplot(3,2,6) ;
     if ~isempty(opts.xmask)

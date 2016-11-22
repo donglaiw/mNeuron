@@ -1,11 +1,11 @@
 exp = {} ;
-ver = 'results' ;
 clear opts
+ver = 'results' ;
+%clear opts
 opts.learningRate = 0.004 * [...
     ones(1,100), ...
     0.1 * ones(1,200), ...
     0.01 * ones(1,100)];
-opts.objective = 'l2' ;
 opts.beta = 2 ;
 opts.lambdaL2 = 8e-10 ;
 opts.lambdaTV = 1e0 ;
@@ -15,6 +15,7 @@ opts.TVbeta = 2;
 opts.init = [];
 opts.layer_ind = [];
 opts.dsp = 25;
+opts.objective = 'l2' ;
 opts.do_dc = 0;
 opts.feats = [];
 opts.do_thres =0;

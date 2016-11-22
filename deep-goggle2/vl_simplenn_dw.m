@@ -200,6 +200,13 @@ for i=1:n
     % for any decent performance.
     wait(gpuDevice) ;
   end
+      % dw: extra masking
+      if ~isempty(mask_id) &&ismember(i+1,mask_id)
+        rid = find(mask_id==i+1);
+        tmp_mask = net.fmask{rid}{2};
+        res(i+1).x = bsxfun(@times,res(i+1).x,tmp_mask);
+      end
+
   res(i).time = toc(res(i).time) ;
 end
 
