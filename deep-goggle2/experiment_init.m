@@ -40,6 +40,7 @@ exp.opts.optim_method = 'gradient-descent';
 % 0: feature inversion
 % 1: one class
 exp.opts.task = 0;
+exp.opts.cnn_mode = 'caffe';
 
 
 exp.opts.init =[];

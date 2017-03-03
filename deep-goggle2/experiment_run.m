@@ -12,6 +12,8 @@ case 1
         mm = d.image_mean;
     case 'vgg16' % vgg
         mm = repmat(reshape([103.939, 116.779, 123.68],[1,1,3]),[256 256]);
+    case 'alexWeb'
+        mm = repmat(reshape([0.8309, 0.8310, 0.8328],[1,1,3]),[256 256]);
     end 
     net.normalization=struct('imageSize',[net.im_sz net.im_sz 3],'averageImage',mm);
     exp.opts.normalize = @(x) U_prepare_image(x, mm,exp.model,-2);

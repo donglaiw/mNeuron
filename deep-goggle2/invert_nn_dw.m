@@ -120,6 +120,7 @@ for t=1:opts.maxNumIterations
             x_momentum=x_momentum/tmp_max*opts.grad_ran(1);
         end
     end
+    tmp_max =max(abs(x_momentum(:)));
 
     if opts.dsp>=0
       fprintf('iter:%05d: max_grad=%3.4g, err_data=%5.4g, err_TV=%5.4g, err_L2=%5.4g, err_all=%5.4g;\n', t, tmp_max,E(1,t),E(2,t),E(3,t), E(4,t)) ;
@@ -180,16 +181,16 @@ if opts.dsp<=0
 end
 
 % Compute the features optained using feedforward on the computed inverse
-res_nn = vl_simplenn_dw(net, x);
+res_nn = res;
 
 clear res;
-res.input = NaN;
+%res.input = NaN;
 res.output = output ;
 res.energy = E ;
-res.y0 = y0 ;
-res.y = res_nn(end-1).x ;
-res.opts = opts ;
-res.err = res_nn(end).x / y0_sigma^2 ;
+%res.y0 = y0 ;
+%res.y = res_nn(end-1).x ;
+%res.opts = opts ;
+%res.err = res_nn(end).x / y0_sigma^2 ;
 
 % --------------------------------------------------------------------
 function [e, dx] = tv(x,beta,mask)

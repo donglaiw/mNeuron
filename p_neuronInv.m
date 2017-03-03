@@ -7,7 +7,7 @@
 % b) optimization parameter: 2.3
 
 % to reload model: clear net;V_neuron_single;
-
+%function p_neuronInv(ln,neuron_id)
 param_init
 % --------- USER INPUT -----------
 %% 1.1 select and load model
@@ -16,10 +16,8 @@ cnn_mode = 'caffe'; % 'caffe' or 'matconvnet'
 gpu_id=0; % -1: cpu mode
 %mn='alex';ln = 'c3';
 %mn='alex';ln = 'p5';
-%mn='alexWeb';ln = 'f8';
-%mn='alexWeb';ln = 'p5';
+mn='alexWeb';
 %mn='alex';ln = 'f8';
-mn='alex';ln = 'p5';
 % details in util/U_loadModel.m
 % model names (mn): 
 %   - alex, vgg16, nin, gnet
@@ -31,7 +29,6 @@ mn='alex';ln = 'p5';
 %   - inception layers (GoogleNet): i4a
 
 %% 1.2 select which neuron and number of tiles 
-neuron_id=10; % neuron channel id
 neuron_rf=6; % neuron_rf x neuron_rf tiles will be visualized (for alexnet, range: 1-6)
 neuron_rand=10; % random seed for initializtion
 % file of initial image, random if init_file=[];
@@ -43,7 +40,7 @@ init_file = [];
 U_optsInit
 opts.task = 1;opts.objective = 'oneclass';
 % display every opts.dsp iterations (no display if negative)
-opts.dsp = 5;
+opts.dsp = -1;
 % get the truncated model
 if ~exist('net','var');U_loadModel;end
 
@@ -84,7 +81,9 @@ opts= U_param(opts,mn,ln); % hard-coded learning rate and MRF energy parameters
 exp = experiment_init(mn,[], '', 'cnn', opts) ;
 res = experiment_run(exp,net);
 out=uint8([res.output{end}]);
-% imwrite(out,'db.png')
+Dout=['/data/vision/billf/deep-time/webAli/www/neuron/webCNN_' ln '/'];
+if ~exist(Dout,'dir');mkdir(Dout);end
+imwrite(out,[Dout num2str(neuron_id) '.png'])
 
 %% output
 %output_folder = sprintf('result/%s_%s/',mn,ln); mkdir(output_folder)
