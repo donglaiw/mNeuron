@@ -16,7 +16,7 @@
 
 2. Image Completion
   1. Download object topics
-     [**link**](http://visi11on03.csail.mit.edu/cnn_art/fc7-topic.zip) and put under data/fc7-topic/
+     [**link**](http://vision03.csail.mit.edu/cnn_art/fc7-topic.zip) and put under data/fc7-topic/
   2. Edit and run: **V_inpaint.m**
 
 3. Feature Inversion, same as [**deep-goggle**](https://github.com/aravindhm/deep-goggle)
